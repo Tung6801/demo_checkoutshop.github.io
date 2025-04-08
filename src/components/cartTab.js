@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CartItem from "./cartItem";
-import { toggleStatusTab } from "../stores/cart";
+import { toggleStatusTab, clearCart } from "../stores/cart";
 import { products } from "../products";
 
 const CartTab = () => {
@@ -30,9 +30,11 @@ const CartTab = () => {
 
   const handleConfirmCheckout = () => {
     setCheckoutModalOpen(false);
+    dispatch(clearCart());
+    dispatch(toggleStatusTab());
     setTimeout(() => {
-      alert(`Đặt hàng thành công! Tổng số tiền: $${totalAmount}`);
-    }, 300);
+      alert(`Đặt hàng thành công !`);
+    }, 500);
   };
 
   const handleCancelCheckout = () => {
@@ -47,7 +49,7 @@ const CartTab = () => {
       transform transition-transform duration-500
       ${statusTab === false ? "translate-x-full" : ""}`}
       >
-        <h2 className="p-5 text-white text-2xl">SHOP CLOTHES</h2>
+        <h2 className="p-5 text-white text-2xl">CHAIR SHOP</h2>
         <div className="p-5">
           {carts.map((item, key) => (
             <CartItem key={key} data={item} />

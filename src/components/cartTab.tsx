@@ -77,9 +77,14 @@ const CartTab: React.FC = () => {
 
       
       {isCartEmpty && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg text-center w-96">
-            <h2 className="text-xl font-bold mb-4 text-red-500">Bạn chưa thêm sản phẩm vào giỏ hàng</h2>
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50"
+        onClick={handleCancelCheckout}>
+          <div className="bg-white p-8 rounded-lg shadow-lg text-center w-96"
+          //cancel
+          onClick={(e) => e.stopPropagation()}> 
+            <h2 className="text-xl font-bold mb-4 text-red-500">
+              Bạn chưa thêm sản phẩm vào giỏ hàng
+              </h2>
             <div className="flex justify-center space-x-4">
               <button className="bg-gray-500 text-white px-6 py-2 rounded-lg" onClick={handleCancelCheckout}>
                 Đóng
@@ -94,7 +99,7 @@ const CartTab: React.FC = () => {
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-8 rounded-lg shadow-lg text-center w-96">
             <h2 className="text-xl font-bold mb-4">Tổng số tiền thanh toán của bạn là</h2>
-            <p className="text-2xl font-bold text-red-500 mb-6">${totalAmount.toFixed(2)}</p>
+            <p className="text-2xl font-bold text-red-500 mb-6">${totalAmount.toFixed(0)}</p>
             <div className="flex justify-center space-x-4">
               <button className="bg-green-500 text-white px-6 py-2 rounded-lg" onClick={handleConfirmCheckout}>
                 Xác nhận

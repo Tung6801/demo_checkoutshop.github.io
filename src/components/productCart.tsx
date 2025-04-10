@@ -2,18 +2,36 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart } from '../stores/cart';
+import { RootState } from '../stores';
 
-const ProductCart = (props) => {
-    const carts = useSelector(store => store.cart.items);
+type Product = {
+    id: number;
+    name: string;
+    price: number;
+    image: string;
+    slug: string;
+    [key: string]: any;
+}
+type ProductCartProps = {
+    data: Product;
+}
+type CartItem = {
+    productId: number;
+    quantity: number;
+}
+const ProductCart: React.FC<ProductCartProps> = ({data}) => {
+    const carts = useSelector((store: RootState) => store.cart.items);
     console.log(carts);
-    const {id, name, price, image, slug} = props.data;
+    const {id, name, price, image, slug} = data;
     const dispatch = useDispatch();
-    const handleAddToCart = () => {
-        dispatch(addToCart({
+    
+    const handleAddToCart = (): void => {
+        const cartItem: CartItem = {
             productId: id,
             quantity: 1
-        }));
-    }
+        };
+        dispatch(addToCart(cartItem));
+    };
   return (
     <div className='bg-white p-5 rounded-xl shadow-sm flex flex-col justify-between h-[500px]'>
         <Link to={slug}>

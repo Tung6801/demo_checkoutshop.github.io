@@ -3,20 +3,30 @@ import { useSelector, useDispatch } from "react-redux";
 import CartItem from "./cartItem";
 import { toggleStatusTab, clearCart } from "../stores/cart";
 import { products } from "../products";
+import { RootState } from "../stores";
 
-const CartTab = () => {
-  const carts = useSelector((store) => store.cart.items);
-  const statusTab = useSelector((store) => store.cart.statusTab);
+interface CartItemType {
+  productId: number;
+  quantity: number;
+}
+interface ProductType {
+  id: number;
+  price: number;
+  [key: string]: any;
+}
+const CartTab: React.FC = () => {
+  const carts = useSelector((store: RootState) => store.cart.items);
+  const statusTab = useSelector((store: RootState) => store.cart.statusTab);
   const dispatch = useDispatch();
-  const [isCheckoutModalOpen, setCheckoutModalOpen] = useState(false);
-  const [isCartEmpty, setCartEmpty] = useState(false);
+  const [isCheckoutModalOpen, setCheckoutModalOpen] = useState<boolean>(false);
+  const [isCartEmpty, setCartEmpty] = useState<boolean>(false);
 
   const handleCloseTabCart = () => {
     dispatch(toggleStatusTab());
   };
 
-  const totalAmount = carts.reduce((total, item) => {
-    const product = products.find((p) => p.id === item.productId);
+  const totalAmount = carts.reduce((total: number, item: CartItemType) => {
+    const product = products.find((p: ProductType) => p.id === item.productId);
     return total + (product ? product.price * item.quantity : 0);
   }, 0);
 
@@ -51,7 +61,7 @@ const CartTab = () => {
       >
         <h2 className="p-5 text-white text-2xl">CHAIR SHOP</h2>
         <div className="p-5">
-          {carts.map((item, key) => (
+          {carts.map((item: CartItemType, key: number) => (
             <CartItem key={key} data={item} />
           ))}
         </div>

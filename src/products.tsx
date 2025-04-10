@@ -6,8 +6,15 @@ import imageProduct5 from './assets/images/5.png'
 import imageProduct6 from './assets/images/6.png'
 import imageProduct7 from './assets/images/7.png'
 import imageProduct8 from './assets/images/8.png'
-
-export const products = [
+export interface product {
+    id: number;
+    name: string;
+    price: number;
+    image: string;
+    description: string;
+    slug: string;
+}
+export const products: product[] = [
     {
         id: 1,
         name: 'Nightwear Top Shop',

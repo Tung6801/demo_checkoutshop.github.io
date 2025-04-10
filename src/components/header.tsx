@@ -3,14 +3,20 @@ import { Link } from 'react-router-dom'
 import iconCart from '../assets/images/iconCart.png'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleStatusTab } from '../stores/cart'
+import { RootState } from '../stores'
 
-const Header = () => {
-  const [totalQuantity, setTotalQuantity] = useState(0);
-  const carts = useSelector(store => store.cart.items);
+interface CartItem {
+  productId: number;
+  quantity: number;
+}
+const Header: React.FC = () => {
+  const [totalQuantity, setTotalQuantity] = useState<number>(0);
+  const carts = useSelector((store: RootState) => store.cart.items);
   const dispatch = useDispatch();
   useEffect(() => {
       let total = 0;
-      carts.forEach(item => total += item.quantity);
+      carts.forEach((item: CartItem) => {
+        total += item.quantity});
       setTotalQuantity(total);
   }, [carts]);
   const handleOpenTabCart = () => {
